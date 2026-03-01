@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Link href="/about">アバウトページへ.</Link>
-      <Myscene color={customColor} />
+      {/* <Myscene color={customColor} /> */}
     </main >
   );
 }
