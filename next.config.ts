@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
   /* config options here */
   output: 'export', // これでビルド時に純粋なHTML/JS/CSSが出力されます
@@ -11,6 +12,13 @@ const nextConfig: NextConfig = {
   // Sassの設定を明示的に記述（必要に応じて）
   sassOptions: {
     includePaths: ['./styles'],
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      use: ['raw-loader', 'glslify-loader'],
+    });
+    return config;
   },
 };
 

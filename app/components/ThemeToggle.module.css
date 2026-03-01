@@ -1,0 +1,36 @@
+.toggleBtn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: var(--foreground);
+    color: var(--background);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+}
+
+.toggleBtn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+/* モバイル向け調整 */
+@media (max-width: 768px) {
+    .toggleBtn {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
