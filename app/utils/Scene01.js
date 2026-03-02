@@ -1,3 +1,4 @@
+import AbstructScene from './AbstructScene';
 import * as THREE from 'three';
 
 export default class Scene01 extends AbstructScene {

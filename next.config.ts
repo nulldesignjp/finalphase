@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   /* config options here */
   output: 'export', // これでビルド時に純粋なHTML/JS/CSSが出力されます
   // distDir: 'dist',    // 👈 ここを 'docs' や 'dist' に書き換える

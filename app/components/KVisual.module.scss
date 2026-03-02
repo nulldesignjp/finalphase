@@ -1,0 +1,23 @@
+#kv {
+    min-height: 100dvh;
+}
+
+.webglview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.main {
+    font-size: 100px;
+    color: black;
+
+}
+
+.entry {
+    min-height: 25vh;
+    border-top: 1px solid #ccc;
+}
