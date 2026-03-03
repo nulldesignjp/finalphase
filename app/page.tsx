@@ -12,7 +12,6 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Link href="/about">アバウトページへ.</Link>
       <KVisual />
     </main >
   );

@@ -3,13 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --content-width: 960px;
+  --content-padding: 16px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-garamond: var(--font-eb-garamond);
+  --font-kaku: var(--font-zen-kaku);
 }
 
 /* システム設定（ダークモード） ※手動でライトに設定されている場合は除外 */
@@ -28,63 +30,27 @@
 
 /* 手動でのライトモード上書き */
 :root[data-theme="light"] {
-  --background: #ffffff;
+  --background: ##FCFCFC;
   --foreground: #171717;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
 }
-
-h1,
-h2 {
-  font-family: var(--font-eb-garamond);
-}
-
-h3,
-h4,
-h5,
-h6,
-p,
-li,
-span,
-a,
-button,
-input,
-textarea,
-select,
-option {
-  font-family: var(--font-zen-kaku);
-}
-
 
 body {
   margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-kaku);
   text-align: center;
 }
 
-#container {
-  margin: 0 auto;
-  max-width: 960px;
-  text-align: left;
-}
-
-#container-inner {
-  padding: 0 2rem;
-}
-
-#siteHeader,
-#siteFooter {
-  font-size: x-small;
-}
-
-/* ヘッダーの文字色を背景に応じて反転させる */
-#siteHeader {
-  position: relative;
-  z-index: 100;
-  mix-blend-mode: difference;
-  color: #fff;
-  /* differenceで反転させるため、白を基準にします */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-garamond);
 }

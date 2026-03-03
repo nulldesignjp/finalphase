@@ -7,32 +7,31 @@ const rootPath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function About() {
 
-    const customColor = '#FF0000';
+  const customColor = '#FF0000';
 
-    return (
-        <main className={styles.main}>
-            <p>My First WebGL with Fuckin Next.js</p>
-            <Link href="/">HOME</Link>
-            <ul>
-                <li>ページ間の遷移方法</li>
-                <li>
-                    <pre>return &lt;Link href="/about"&gt;アバウトページへ&lt;/Link&gt;</pre>
-                </li>
-                <li>
-                    <pre>
-                        {`import {useRouter} from 'next/navigation';
+  return (
+    <main className={styles.main}>
+      <p>My First WebGL with Fuckin Next.js</p>
+      <ul>
+        <li>ページ間の遷移方法</li>
+        <li>
+          <pre>return &lt;Link href="/about"&gt;アバウトページへ&lt;/Link&gt;</pre>
+        </li>
+        <li>
+          <pre>
+            {`import {useRouter} from 'next/navigation';
 const router = useRouter();
 router.push('/about');
 return <button onClick={handleClick}>移動する</button>;`}
-                    </pre>
-                </li>
-                <li>ページ間の情報保持</li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li>
-                    <pre>
-                        {`'use client';
+          </pre>
+        </li>
+        <li>ページ間の情報保持</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li>
+          <pre>
+            {`'use client';
 
 import { useState } from 'react';
 import Child from './Child';
@@ -55,9 +54,9 @@ export default function Parent() {
     </div>
   );
 }`}
-                    </pre>
-                </li>
-            </ul>
-        </main >
-    );
+          </pre>
+        </li>
+      </ul>
+    </main >
+  );
 }

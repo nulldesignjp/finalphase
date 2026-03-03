@@ -11,13 +11,40 @@
     z-index: -1;
 }
 
-.main {
-    font-size: 100px;
-    color: black;
+.section {
 
+    min-height: 100vh;
+
+    .inner {
+        margin: 0 auto;
+        padding: 0 var(--content-padding);
+        max-width: var(--content-width);
+        text-align: left;
+    }
 }
 
 .entry {
-    min-height: 25vh;
-    border-top: 1px solid #ccc;
+
+    img {
+        width: auto;
+        height: 128px;
+        border-radius: 3px;
+    }
+}
+
+.header {}
+
+.footer {}
+
+.section.footer {
+
+    background-color: #000;
+    color: #fff;
+
+    min-height: auto !important;
+
+    .inner {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
 }

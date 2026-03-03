@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import styles from "./layout.module.css";
 
-import SiteHeader from "./components/SiteHeader";
 import ThemeToggle from "./components/ThemeToggle";
-// import SiteFooter from "./components/SiteFooter";
-
-// 1. next/font/google から使いたいフォントをインポート
-// import { EB_Garamond, Lato, Zen_Kaku_Gothic_New, Noto_Sans_JP } from "next/font/google";
-import { EB_Garamond, Zen_Kaku_Gothic_New } from "next/font/google";
+import Navigation from "./components/Navigation";
 import SiteFooter from "./components/SiteFooter";
+
+// 1. next/font/google から使いたいフォントをインポート`
+import { EB_Garamond, Zen_Kaku_Gothic_New } from "next/font/google";
 
 // 2. 各フォントの設定（太さや、CSSで呼び出すための変数名を指定）
 const ebGaramond = EB_Garamond({
@@ -22,19 +21,6 @@ const zenKaku = Zen_Kaku_Gothic_New({
   subsets: ["latin"],
   variable: "--font-zen-kaku",
 });
-
-// const lato = Lato({
-//   weight: ["100", "300", "400", "700", "900"],
-//   style: ["normal", "italic"],
-//   subsets: ["latin"],
-//   variable: "--font-lato",
-// });
-
-// const notoSansJP = Noto_Sans_JP({
-//   weight: ["300", "400", "500", "700"],
-//   subsets: ["latin"],
-//   variable: "--font-noto-sans-jp",
-// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -69,14 +55,10 @@ export default function RootLayout({
       <body
         className={`${ebGaramond.variable} ${zenKaku.variable} antialiased`}
       >
-        <ThemeToggle />
-        <div id="container">
-          <div id="container-inner">
-            <SiteHeader />
-            {children}
-            <SiteFooter />
-            {/* #container-inner */}</div>
-          {/* #container */} </div>
+        <>
+          <ThemeToggle />
+          {children}
+        </>
       </body>
     </html>
   );
