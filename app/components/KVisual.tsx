@@ -14,23 +14,14 @@ export default function KVisual() {
 
     const scenes = [
         {
-            "title": "title1",
-            "description": "description1",
-            "image": "/assets/img/brokenBuild.PNG",
             "class": "entry",
             "scene": Scene01
         },
         {
-            "title": "title2",
-            "description": "description2",
-            "image": "/assets/img/IMG_1399.JPG",
             "class": "entry",
             "scene": Scene02
         },
         {
-            "title": "title3",
-            "description": "description3",
-            "image": "/assets/img/view01.PNG",
             "class": "entry",
             "scene": Scene03
         }
@@ -274,9 +265,9 @@ export default function KVisual() {
             {scenes.map((scene, index) => (
                 <section key={index} className={`${styles.section} ${styles.entry}`}>
                     <div className={styles.inner}>
-                        <h2>{scene.title}</h2>
-                        <p>{scene.description}</p>
-                        <img src={scene.image} alt={scene.title} />
+                        <h2>{scene.scene.meta.title}</h2>
+                        <p>{scene.scene.meta.description}</p>
+                        <img src={scene.scene.meta.image} alt={scene.scene.meta.title} />
                     </div>
                 </section>
             ))}

@@ -4,8 +4,9 @@ import * as THREE from 'three';
 export default class Scene01 extends AbstructScene {
 
     static meta = {
-        title: 'template title element',
-        description: 'template description element',
+        title: 'template title element 01',
+        description: 'template description element 01',
+        image: "/assets/img/brokenBuild.PNG",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],
         transition: {

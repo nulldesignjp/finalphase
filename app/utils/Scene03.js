@@ -6,8 +6,9 @@ import { Pane } from 'tweakpane';
 export default class Scene03 extends AbstructScene {
 
     static meta = {
-        title: 'template title element',
-        description: 'template description element',
+        title: 'template title element 03',
+        description: 'template description element 03',
+        image: "/assets/img/view01.PNG",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],
         transition: {

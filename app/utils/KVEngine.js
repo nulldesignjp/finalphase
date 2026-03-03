@@ -36,7 +36,7 @@ export default class KVEngine extends THREE.EventDispatcher {
                 pixelRatio: window.devicePixelRatio
             }
 
-            this.clock = new THREE.Clock();
+            this.clock = new THREE.Timer();
 
             this.scene = new THREE.Scene();
             // this.camera = new THREE.PerspectiveCamera(45, this.size.width / this.size.height, 0.1, 1000);
@@ -64,7 +64,7 @@ export default class KVEngine extends THREE.EventDispatcher {
 
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-            this.renderer.outputEncoding = THREE.sRGBEncoding;
+            // this.renderer.outputEncoding = THREE.sRGBEncoding;
             // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
             // this.renderer.toneMappingExposure = 1;
 
