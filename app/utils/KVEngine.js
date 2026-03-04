@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+import RipplePass from './RipplePass.js';
+import { Pane } from 'tweakpane';
 
 import gsap from 'gsap';
 
@@ -36,7 +38,7 @@ export default class KVEngine extends THREE.EventDispatcher {
                 pixelRatio: window.devicePixelRatio
             }
 
-            this.clock = new THREE.Timer();
+            this.clock = new THREE.Clock();
 
             this.scene = new THREE.Scene();
             // this.camera = new THREE.PerspectiveCamera(45, this.size.width / this.size.height, 0.1, 1000);
@@ -63,8 +65,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-            // this.renderer.outputEncoding = THREE.sRGBEncoding;
+            this.renderer.outputEncoding = THREE.sRGBEncoding;
             // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
             // this.renderer.toneMappingExposure = 1;
 
@@ -110,9 +111,37 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.postProcess.composer.setPixelRatio(this.size.pixelRatio);
 
             this.postProcess.composer.addPass(this.postProcess.renderPass);
-            this.postProcess.composer.addPass(this.postProcess.finalPass);
+            // this.postProcess.composer.addPass(this.postProcess.finalPass);
 
+            // finalPassの代わりに、RipplePassを追加
+            let _s = 0.1;
+            this.ripplePass = new RipplePass(this.size.width * this.size.pixelRatio * _s, this.size.height * this.size.pixelRatio * _s);
+            this.ripplePass.renderToScreen = true;
+            this.postProcess.composer.addPass(this.ripplePass);
 
+            // Tweakpaneのセットアップ
+            this.pane = new Pane({ title: 'RipplePass Settings' });
+
+            const folder = this.pane.addFolder({ title: 'Ripple Parameters' });
+            folder.addBinding(this.ripplePass.simMaterial.uniforms.uDamping, 'value', { min: 0.9, max: 0.999, step: 0.001, label: 'Damping' });
+            folder.addBinding(this.ripplePass.simMaterial.uniforms.uRadius, 'value', { min: 0.001, max: 0.1, step: 0.001, label: 'Radius' });
+            folder.addBinding(this.ripplePass.simMaterial.uniforms.uStrength, 'value', { min: 0.1, max: 10.0, step: 0.1, label: 'Strength' });
+            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uDistortion, 'value', { min: 0.0, max: 2.0, step: 0.01, label: 'Distortion' });
+            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uHighlight, 'value', { min: 0.0, max: 5.0, step: 0.01, label: 'Highlight' });
+            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uRgbShift, 'value', { min: 0.0, max: 0.1, step: 0.001, label: 'RGB Shift' });
+
+            // マウスイベントの更新ロジック
+            this.lastMouse = new THREE.Vector2();
+            window.addEventListener('mousemove', (_e) => {
+                const nx = _e.clientX / window.innerWidth;
+                const ny = 1.0 - _e.clientY / window.innerHeight;
+
+                // マウスの移動量（波の発生力）を計算
+                const delta = Math.min(Math.hypot(nx - this.lastMouse.x, ny - this.lastMouse.y), 0.1);
+
+                this.ripplePass.updateMouse(nx, ny, delta);
+                this.lastMouse.set(nx, ny);
+            });
 
             _resolve();
         });
@@ -314,6 +343,10 @@ export default class KVEngine extends THREE.EventDispatcher {
         this.removeEvents();
         if (this.updateKey) {
             window.cancelAnimationFrame(this.updateKey);
+        }
+
+        if (this.pane) {
+            this.pane.dispose();
         }
 
         // シーン内のオブジェクトを再帰的に解放

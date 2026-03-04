@@ -45,7 +45,7 @@ export default class Scene03 extends AbstructScene {
             blending: THREE.NormalBlending
         };
 
-        this.setupPane();
+        // this.setupPane();
 
         let _ldr = new GLTFLoader()
         _ldr.load('/assets/models/fieldtest.glb', (_gltf) => {
