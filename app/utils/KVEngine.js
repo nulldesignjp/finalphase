@@ -114,21 +114,30 @@ export default class KVEngine extends THREE.EventDispatcher {
             // this.postProcess.composer.addPass(this.postProcess.finalPass);
 
             // finalPassの代わりに、RipplePassを追加
-            let _s = 0.2; // 解像度を下げると波が速く、粘度が低く見える
+            let _s = 0.1; // 解像度を下げると波が速く、粘度が低く見える
             this.ripplePass = new RipplePass(this.size.width * this.size.pixelRatio * _s, this.size.height * this.size.pixelRatio * _s);
             this.ripplePass.renderToScreen = true;
             this.postProcess.composer.addPass(this.ripplePass);
 
             // Tweakpaneのセットアップ
-            this.pane = new Pane({ title: 'RipplePass Settings' });
+            // this.pane = new Pane({ title: 'RipplePass Settings' });
+            // const folder = this.pane.addFolder({ title: 'Ripple Parameters' });
+            // folder.addBinding(this.ripplePass.simMaterial.uniforms.uDamping, 'value', { min: 0.9, max: 0.999, step: 0.001, label: 'Damping' });
+            // folder.addBinding(this.ripplePass.simMaterial.uniforms.uRadius, 'value', { min: 0.001, max: 0.1, step: 0.001, label: 'Radius' });
+            // folder.addBinding(this.ripplePass.simMaterial.uniforms.uStrength, 'value', { min: 0.1, max: 10.0, step: 0.1, label: 'Strength' });
+            // folder.addBinding(this.ripplePass.renderMaterial.uniforms.uDistortion, 'value', { min: 0.0, max: 2.0, step: 0.01, label: 'Distortion' });
+            // folder.addBinding(this.ripplePass.renderMaterial.uniforms.uHighlight, 'value', { min: 0.0, max: 5.0, step: 0.01, label: 'Highlight' });
+            // folder.addBinding(this.ripplePass.renderMaterial.uniforms.uRgbShift, 'value', { min: 0.0, max: 0.5, step: 0.001, label: 'RGB Shift' });
+            // folder.addBinding(this.ripplePass.renderMaterial.uniforms.div, 'value', { min: 1.0, max: 2048.0, step: 1.0, label: 'Div' });
 
-            const folder = this.pane.addFolder({ title: 'Ripple Parameters' });
-            folder.addBinding(this.ripplePass.simMaterial.uniforms.uDamping, 'value', { min: 0.9, max: 0.999, step: 0.001, label: 'Damping' });
-            folder.addBinding(this.ripplePass.simMaterial.uniforms.uRadius, 'value', { min: 0.001, max: 0.1, step: 0.001, label: 'Radius' });
-            folder.addBinding(this.ripplePass.simMaterial.uniforms.uStrength, 'value', { min: 0.1, max: 10.0, step: 0.1, label: 'Strength' });
-            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uDistortion, 'value', { min: 0.0, max: 2.0, step: 0.01, label: 'Distortion' });
-            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uHighlight, 'value', { min: 0.0, max: 5.0, step: 0.01, label: 'Highlight' });
-            folder.addBinding(this.ripplePass.renderMaterial.uniforms.uRgbShift, 'value', { min: 0.0, max: 0.1, step: 0.001, label: 'RGB Shift' });
+            //  customize
+            this.ripplePass.simMaterial.uniforms.uDamping.value = 0.96;
+            this.ripplePass.simMaterial.uniforms.uRadius.value = 0.04;
+            this.ripplePass.simMaterial.uniforms.uStrength.value = 5.0;
+            this.ripplePass.renderMaterial.uniforms.uDistortion.value = 1.0;
+            this.ripplePass.renderMaterial.uniforms.uHighlight.value = 1.0;
+            this.ripplePass.renderMaterial.uniforms.uRgbShift.value = 0.5;
+            this.ripplePass.renderMaterial.uniforms.div.value = 1024.0;
 
             // マウスイベントの更新ロジック
             this.lastMouse = new THREE.Vector2();
@@ -138,6 +147,16 @@ export default class KVEngine extends THREE.EventDispatcher {
 
                 // マウスの移動量（波の発生力）を計算
                 const delta = Math.min(Math.hypot(nx - this.lastMouse.x, ny - this.lastMouse.y), 0.1);
+
+                this.ripplePass.updateMouse(nx, ny, delta);
+                this.lastMouse.set(nx, ny);
+            });
+            window.addEventListener('click', (_e) => {
+                const nx = _e.clientX / window.innerWidth;
+                const ny = 1.0 - _e.clientY / window.innerHeight;
+
+                // マウスの移動量（波の発生力）を計算
+                const delta = 0.1;
 
                 this.ripplePass.updateMouse(nx, ny, delta);
                 this.lastMouse.set(nx, ny);
@@ -299,6 +318,11 @@ export default class KVEngine extends THREE.EventDispatcher {
 
         // 屈折用レンダーターゲットのサイズも更新
         this.renderTarget.setSize(this.size.width * this.size.pixelRatio, this.size.height * this.size.pixelRatio);
+
+        if (this.ripplePass) {
+            let _s = 0.1;
+            this.ripplePass.resize(this.size.width * this.size.pixelRatio * _s, this.size.height * this.size.pixelRatio * _s);
+        }
 
         const len = this.postProcess.composer.passes.length;
         for (let i = 0; i < len; i++) {

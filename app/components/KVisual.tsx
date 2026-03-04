@@ -15,6 +15,10 @@ export default function KVisual() {
     const scenes = [
         {
             "class": "entry",
+            "scene": Scene03
+        },
+        {
+            "class": "entry",
             "scene": Scene01
         },
         {

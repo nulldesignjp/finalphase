@@ -80,7 +80,8 @@ export default class RipplePass extends Pass {
                 uDistortion: { value: 0.4 },
                 uHighlight: { value: 1.0 }, // スペキュラの強さ
                 uRgbShift: { value: 0.02 }, // 色収差の強さ
-                uLightDir: { value: new THREE.Vector3(1.0, 1.0, 1.0).normalize() } // 仮想光源の方向
+                uLightDir: { value: new THREE.Vector3(1.0, 1.0, 1.0).normalize() }, // 仮想光源の方向
+                div: { value: 1024.0 }
             },
             vertexShader: `
             varying vec2 vUv;
@@ -94,13 +95,18 @@ export default class RipplePass extends Pass {
             uniform float uHighlight;
             uniform float uRgbShift;
             uniform vec3 uLightDir;
+            uniform float div;
             varying vec2 vUv;
 
             void main() {
+
+                vec2 uv = vUv;
+                uv = floor( ( uv - 0.5 ) * div ) / div + 0.5;
+
                 // 波の高さを取得し、法線の傾き（勾配）を計算
-                float h = texture2D(tWave, vUv).r;
-                float hx = texture2D(tWave, vUv + vec2(uTexelSize.x, 0.0)).r;
-                float hy = texture2D(tWave, vUv + vec2(0.0, uTexelSize.y)).r;
+                float h = texture2D(tWave, uv).r;
+                float hx = texture2D(tWave, uv + vec2(uTexelSize.x, 0.0)).r;
+                float hy = texture2D(tWave, uv + vec2(0.0, uTexelSize.y)).r;
                 
                 vec2 gradient = vec2(hx - h, hy - h);
                 
@@ -113,9 +119,9 @@ export default class RipplePass extends Pass {
                 vec2 distortionOffset = gradient;
 
                 // 1. 各チャンネルのサンプリング座標（法線ベースの空間歪み ＋ 色収差）
-                vec2 uvR = vUv + distortionOffset * (uDistortion + uRgbShift);
-                vec2 uvG = vUv + distortionOffset * uDistortion;
-                vec2 uvB = vUv + distortionOffset * (uDistortion - uRgbShift);
+                vec2 uvR = uv + distortionOffset * (uDistortion + uRgbShift);
+                vec2 uvG = uv + distortionOffset * uDistortion;
+                vec2 uvB = uv + distortionOffset * (uDistortion - uRgbShift);
 
                 // 2. チャンネルごとに別々の座標からテクスチャをサンプリング（背景の屈折・色収差）
                 float r = texture2D(tDiffuse, uvR).r;
@@ -178,5 +184,20 @@ export default class RipplePass extends Pass {
     updateMouse(x, y, delta) {
         this.simMaterial.uniforms.uMouse.value.set(x, y);
         this.simMaterial.uniforms.uMouseDelta.value = delta;
+    }
+
+    resize(width, height) {
+        this.rtA.setSize(width, height);
+        this.rtB.setSize(width, height);
+        this.simMaterial.uniforms.uTexelSize.value.set(1 / width, 1 / height);
+        this.renderMaterial.uniforms.uTexelSize.value.set(1 / width, 1 / height);
+    }
+
+    dispose() {
+        this.rtA.dispose();
+        this.rtB.dispose();
+        this.simMaterial.dispose();
+        this.renderMaterial.dispose();
+        this.fsQuad.dispose();
     }
 }
