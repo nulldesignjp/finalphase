@@ -114,7 +114,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             // this.postProcess.composer.addPass(this.postProcess.finalPass);
 
             // finalPassの代わりに、RipplePassを追加
-            let _s = 0.1;
+            let _s = 0.2; // 解像度を下げると波が速く、粘度が低く見える
             this.ripplePass = new RipplePass(this.size.width * this.size.pixelRatio * _s, this.size.height * this.size.pixelRatio * _s);
             this.ripplePass.renderToScreen = true;
             this.postProcess.composer.addPass(this.ripplePass);
@@ -123,6 +123,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.pane = new Pane({ title: 'RipplePass Settings' });
 
             const folder = this.pane.addFolder({ title: 'Ripple Parameters' });
+            folder.addBinding(this.ripplePass, 'iterations', { min: 1, max: 10, step: 1, label: 'Speed' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uDamping, 'value', { min: 0.9, max: 0.999, step: 0.001, label: 'Damping' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uRadius, 'value', { min: 0.001, max: 0.1, step: 0.001, label: 'Radius' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uStrength, 'value', { min: 0.1, max: 10.0, step: 0.1, label: 'Strength' });
