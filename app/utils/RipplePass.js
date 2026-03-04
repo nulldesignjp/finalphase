@@ -26,8 +26,7 @@ export default class RipplePass extends Pass {
                 uMouseDelta: { value: 0.0 }, // マウスが動いた距離（描画の強さに影響）
                 uDamping: { value: 0.985 },  // 波の粘性・減衰
                 uRadius: { value: 0.015 },   // 波の発生源の広さ
-                uStrength: { value: 2.0 },   // 波の強さ
-                uMouseEnable: { value: 1.0 } // 反復処理時のマウス入力を制御
+                uStrength: { value: 2.0 }    // 波の強さ
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -41,7 +40,6 @@ export default class RipplePass extends Pass {
                 uniform float uDamping;
                 uniform float uRadius;
                 uniform float uStrength;
-                uniform float uMouseEnable; // 初期反復のみマウス入力を有効化するフラグ
                 varying vec2 vUv;
 
                 void main() {
@@ -62,7 +60,7 @@ export default class RipplePass extends Pass {
                     // マウス座標近辺に力を加える（滑らかな減衰で波紋の重なりを綺麗にする）
                     float dist = distance(vUv, uMouse);
                     float drop = smoothstep(uRadius, 0.0, dist);
-                    newHeight += drop * uMouseDelta * uStrength * uMouseEnable;
+                    newHeight += drop * uMouseDelta * uStrength;
 
                     // 波が重なりすぎて値が爆発し、法線が破綻するのを防ぐためのクランプ
                     newHeight = clamp(newHeight, -3.0, 3.0);
@@ -145,31 +143,22 @@ export default class RipplePass extends Pass {
         });
         // 共通の描画用Quad
         this.fsQuad = new FullScreenQuad(this.simMaterial);
-
-        // シミュレーションの処理回数（速度に直結）
-        this.iterations = 2;
     }
 
     render(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
         // 1. マウス変位の減衰
         this.simMaterial.uniforms.uMouseDelta.value *= 0.5;
 
-        // 解像度やシミュレーション回数で波のスピードを調整
-        for (let i = 0; i < this.iterations; i++) {
-            // 初回のみマウスの入力を反映し、それ以降は波の伝播だけを行う
-            this.simMaterial.uniforms.uMouseEnable.value = (i === 0) ? 1.0 : 0.0;
+        // 2. 波のシミュレーション（rtA と rtB のスワップ）
+        const temp = this.rtA;
+        this.rtA = this.rtB;
+        this.rtB = temp;
 
-            // 2. 波のシミュレーション（rtA と rtB のスワップ）
-            const temp = this.rtA;
-            this.rtA = this.rtB;
-            this.rtB = temp;
+        this.simMaterial.uniforms.tWave.value = this.rtB.texture;
+        this.fsQuad.material = this.simMaterial;
 
-            this.simMaterial.uniforms.tWave.value = this.rtB.texture;
-            this.fsQuad.material = this.simMaterial;
-
-            renderer.setRenderTarget(this.rtA);
-            this.fsQuad.render(renderer);
-        }
+        renderer.setRenderTarget(this.rtA);
+        this.fsQuad.render(renderer);
 
         // --- STEP 2: 最終画面への描画 ---
         this.fsQuad.material = this.renderMaterial;

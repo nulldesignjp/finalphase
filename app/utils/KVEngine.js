@@ -123,7 +123,6 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.pane = new Pane({ title: 'RipplePass Settings' });
 
             const folder = this.pane.addFolder({ title: 'Ripple Parameters' });
-            folder.addBinding(this.ripplePass, 'iterations', { min: 1, max: 10, step: 1, label: 'Speed' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uDamping, 'value', { min: 0.9, max: 0.999, step: 0.001, label: 'Damping' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uRadius, 'value', { min: 0.001, max: 0.1, step: 0.001, label: 'Radius' });
             folder.addBinding(this.ripplePass.simMaterial.uniforms.uStrength, 'value', { min: 0.1, max: 10.0, step: 0.1, label: 'Strength' });
