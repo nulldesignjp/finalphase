@@ -7,6 +7,7 @@ import KVEngine from '../utils/KVEngine';
 import Scene01 from '../utils/Scene01';
 import Scene02 from '../utils/Scene02';
 import Scene03 from '../utils/Scene03';
+import Scene04 from '../utils/Scene04';
 
 import styles from './KVisual.module.scss';
 
@@ -15,7 +16,7 @@ export default function KVisual() {
     const scenes = [
         {
             "class": "entry",
-            "scene": Scene03
+            "scene": Scene04
         },
         {
             "class": "entry",

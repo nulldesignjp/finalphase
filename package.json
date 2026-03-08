@@ -6,7 +6,8 @@
     "node": "24.14.0"
   },
   "scripts": {
-    "dev": "next dev --webpack --experimental-https",
+    "dev": "next dev --webpack",
+    "dev.https": "next dev --webpack --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
