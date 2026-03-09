@@ -64,8 +64,8 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.renderer.shadowMap.enabled = true;
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-            this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-            this.renderer.outputEncoding = THREE.sRGBEncoding;
+            // this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+            // this.renderer.outputEncoding = THREE.sRGBEncoding;
             // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
             // this.renderer.toneMappingExposure = 1;
 
@@ -174,6 +174,8 @@ export default class KVEngine extends THREE.EventDispatcher {
 
                 this.ripplePass.updateMouse(nx, ny, delta);
                 this.lastMouse.set(nx, ny);
+
+                // this.ripplePass.simMaterial.uniforms.uRadius.value = 0.04;
 
             }, 3000)
 

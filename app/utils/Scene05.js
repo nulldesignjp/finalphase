@@ -6,8 +6,9 @@ import { Pane } from 'tweakpane';
 export default class Scene00 extends AbstructScene {
 
     static meta = {
-        title: 'blank scene',
-        description: 'scene00.js',
+        title: 'nulldesign.archives',
+        description: 'passing the time until the death.',
+        message: ['this text is paragraph', 'and', 'message.'],
         image: "",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],

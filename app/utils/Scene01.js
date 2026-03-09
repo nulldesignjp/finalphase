@@ -20,6 +20,8 @@ export default class Scene01 extends AbstructScene {
     constructor(_props) {
         super(_props)
 
+        this.scene.background = new THREE.Color(0.6, 0.6, 0.6)
+
         let _ldr = new GLTFLoader()
         _ldr.load('/assets/models/maze00.glb', (_gltf) => {
             this.scene.add(_gltf.scene)

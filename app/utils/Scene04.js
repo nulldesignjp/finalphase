@@ -7,7 +7,8 @@ export default class Scene04 extends AbstructScene {
 
     static meta = {
         title: 'Earth - wireframe',
-        description: 'template description element 03',
+        description: 'Earthに限らずShader芸をざっくりまとめて自動スライド形式にして表示とか？',
+        message: ['横にスライドでも十分面白そう。写真いらんよな'],
         image: "/assets/img/view01.PNG",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],
@@ -88,7 +89,7 @@ export default class Scene04 extends AbstructScene {
                 wireframe: true,
             })
             let _smesh2 = new THREE.Mesh(_sgeo, _smat2)
-            _smesh.add(_smesh2)
+            // _smesh.add(_smesh2)
 
         });
 

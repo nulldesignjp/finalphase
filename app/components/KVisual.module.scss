@@ -28,6 +28,19 @@
             top: 50%;
             transform: translateY(-50%);
         }
+
+        h2 {
+            font-family: var(--font-eb-garamond);
+            font-size: 1.5rem;
+        }
+
+        .msgs {
+            p {
+                max-width: 40%;
+                margin-top: 10px;
+                line-height: 1.75;
+            }
+        }
     }
 }
 
@@ -47,10 +60,6 @@
     }
 }
 
-.header {}
-
-.footer {}
-
 .section.footer {
 
     background-color: #000;
@@ -59,7 +68,7 @@
     min-height: 100vh !important;
 
     .inner {
-        padding-top: 1em;
+        padding-top: 3em;
         padding-bottom: 1em;
         position: static;
 
@@ -68,5 +77,23 @@
             transform: translateY(0%);
         }
 
+    }
+
+    p {
+        margin: 30px 0 10px;
+    }
+
+    a {
+        color: #FFF;
+        opacity: 1.0;
+        transition: opacity 0.4s 0.0s ease;
+    }
+
+    a:hover {
+        opacity: 0.5;
+    }
+
+    a:before {
+        content: "- "
     }
 }
