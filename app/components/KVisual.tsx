@@ -9,6 +9,7 @@ import Scene01 from '../utils/Scene01';
 import Scene02 from '../utils/Scene02';
 import Scene03 from '../utils/Scene03';
 import Scene04 from '../utils/Scene04';
+import Scene05 from '../utils/Scene05';
 
 import styles from './KVisual.module.scss';
 
@@ -34,6 +35,10 @@ export default function KVisual() {
         {
             "class": "entry",
             "scene": Scene03
+        },
+        {
+            "class": "entry",
+            "scene": Scene05
         }
     ];
 
@@ -293,6 +298,15 @@ export default function KVisual() {
                                     alt={scene.scene.meta.title}
                                 />
                             )}
+
+                            {scene.scene.meta.message && (
+                                <div className={`${styles.msgs}`}>
+                                    {scene.scene.meta.message.map((msg, idx) => (
+                                        <p key={idx}>{msg}</p>
+                                    ))}
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </section>

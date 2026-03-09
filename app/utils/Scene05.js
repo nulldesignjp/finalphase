@@ -8,6 +8,7 @@ export default class Scene00 extends AbstructScene {
     static meta = {
         title: 'nulldesign.archives',
         description: 'passing the time until the death.',
+        message: ['this text is paragraph', 'and', 'message.'],
         image: "",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],

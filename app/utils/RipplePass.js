@@ -181,7 +181,7 @@ export default class RipplePass extends Pass {
     }
 
     // マウス入力の更新用インターフェース
-    updateMouse(x, y, delta) {
+    updateMouse(x, y, delta = 0.1) {
         this.simMaterial.uniforms.uMouse.value.set(x, y);
         this.simMaterial.uniforms.uMouseDelta.value = delta;
     }

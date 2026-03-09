@@ -175,6 +175,8 @@ export default class KVEngine extends THREE.EventDispatcher {
                 this.ripplePass.updateMouse(nx, ny, delta);
                 this.lastMouse.set(nx, ny);
 
+                // this.ripplePass.simMaterial.uniforms.uRadius.value = 0.04;
+
             }, 3000)
 
             _resolve();
