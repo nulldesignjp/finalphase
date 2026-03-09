@@ -12,14 +12,29 @@
 }
 
 .section {
-
-    min-height: 100vh;
+    display: flex;
+    min-height: 150vh;
 
     .inner {
+        flex: 1;
         margin: 0 auto;
         padding: 0 var(--content-padding);
         max-width: var(--content-width);
         text-align: left;
+        align-items: center; // 縦中央
+
+        .info {
+            position: sticky;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+.section.first {
+    h2 {
+        font-family: var(--font-eb-garamond);
+        font-size: 2rem;
     }
 }
 
@@ -41,10 +56,17 @@
     background-color: #000;
     color: #fff;
 
-    min-height: auto !important;
+    min-height: 100vh !important;
 
     .inner {
         padding-top: 1em;
         padding-bottom: 1em;
+        position: static;
+
+        .info {
+            top: 0;
+            transform: translateY(0%);
+        }
+
     }
 }

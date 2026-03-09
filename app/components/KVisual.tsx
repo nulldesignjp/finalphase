@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import KVEngine from '../utils/KVEngine';
+import Scene00 from '../utils/Scene00';
 import Scene01 from '../utils/Scene01';
 import Scene02 from '../utils/Scene02';
 import Scene03 from '../utils/Scene03';
@@ -14,6 +15,10 @@ import styles from './KVisual.module.scss';
 export default function KVisual() {
 
     const scenes = [
+        {
+            "class": "entry",
+            "scene": Scene00
+        },
         {
             "class": "entry",
             "scene": Scene04
@@ -228,9 +233,15 @@ export default function KVisual() {
 
 
         // クライアント側のみでObserverをセットアップ
+        const options = {
+            root: null, // null はビューポート、またはスクロールコンテナの要素
+            rootMargin: "0px 0px -50% 0px", // 発火判定のオフセット（上下左右）
+            threshold: 0 // 発火の割合（0〜1）
+        };
+
         _domlist.forEach((el, index) => {
 
-            const threshold = scenes[index].scene.meta.transition?.threshold ?? 0.5;
+            //  const threshold = scenes[index].scene.meta.transition?.threshold ?? 0.5;
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -239,9 +250,7 @@ export default function KVisual() {
                         transitionToScene(index);
                     }
                 });
-            }, {
-                threshold: threshold
-            });
+            }, options);
 
             observer.observe(el);
             observers.push(observer);
@@ -260,81 +269,95 @@ export default function KVisual() {
     return (
         <div id={styles.kv}>
 
-            <section className={`${styles.section} ${styles.header}`}>
+            {/*
+                        <section className={`${styles.section} ${styles.header}`}>
                 <div className={styles.inner}>
-                    <h2>static key visiula</h2>
-                    <p>tired web</p>
+                    <div className={styles.info}>
+                        <h2>static key visiula</h2>
+                        <p>tired web</p>
+                    </div>
                 </div>
             </section>
+             */}
 
             {scenes.map((scene, index) => (
-                <section key={index} className={`${styles.section} ${styles.entry}`}>
+                <section key={index} className={`${styles.section} ${styles.entry} ${index === 0 ? styles.first : ''}`}>
                     <div className={styles.inner}>
-                        <h2>{scene.scene.meta.title}</h2>
-                        <p>{scene.scene.meta.description}</p>
-                        <img src={scene.scene.meta.image} alt={scene.scene.meta.title} />
+                        <div className={styles.info}>
+                            <h2>{scene.scene.meta.title}</h2>
+                            <p>{scene.scene.meta.description}</p>
+                            {scene.scene.meta.image && (
+                                <img
+                                    key={index}
+                                    src={scene.scene.meta.image}
+                                    alt={scene.scene.meta.title}
+                                />
+                            )}
+                        </div>
                     </div>
                 </section>
             ))}
 
             <section className={`${styles.section} ${styles.footer}`}>
                 <div className={styles.inner}>
-                    <h2>About this site</h2>
-                    <p>Hiroshi Koi</p>
-                    <p>Design Engineer.</p>
+                    <div className={styles.info}>
+                        <h2>About this site</h2>
+                        <p>Hiroshi Koi</p>
+                        <p>Design Engineer.</p>
 
-                    <p>Archives</p>
-                    <ul>
-                        <li>
-                            <a href="https://ijisosaku.com/ambitious_kenya/" target="_blank">
-                                ambitious_kenya
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://nulldesign.jp/skynet/">
-                                SkyNet
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://nulldesign.jp/metrogram3d/">
-                                metrogram3d
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://nulldesign.jp/metrogram/">
-                                metrogram
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://nulldesign.jp/log/">
-                                <s>.log</s>
-                            </a>
-                        </li>
-                    </ul>
+                        <p>Archives</p>
+                        <ul>
+                            <li>
+                                <a href="https://ijisosaku.com/ambitious_kenya/" target="_blank">
+                                    ambitious_kenya
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nulldesign.jp/skynet/">
+                                    SkyNet
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nulldesign.jp/metrogram3d/">
+                                    metrogram3d
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nulldesign.jp/metrogram/">
+                                    metrogram
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://nulldesign.jp/log/">
+                                    <s>.log</s>
+                                </a>
+                            </li>
+                        </ul>
 
-                    <p>SNS</p>
-                    <ul>
-                        <li>
-                            <a href="https://x.com/nulldesign" target="_blank">
-                                Twitter
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/hrsk.log/" target="_blank">
-                                Instagram
-                            </a>
-                        </li>
-                    </ul>
+                        <p>SNS</p>
+                        <ul>
+                            <li>
+                                <a href="https://x.com/nulldesign" target="_blank">
+                                    Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/hrsk.log/" target="_blank">
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
 
-                    <p>Awards</p>
-                    <ul>
-                        <li>The Webby Awards 2016 NETART winner.</li>
-                        <li>Yahoo! JAPAN internet creative award 2015 innovation: Silver.</li>
-                        <li>W3 Awards</li>
-                        <li>etc....</li>
-                    </ul>
+                        <p>Awards</p>
+                        <ul>
+                            <li>The Webby Awards 2016 NETART winner.</li>
+                            <li>Yahoo! JAPAN internet creative award 2015 innovation: Silver.</li>
+                            <li>W3 Awards</li>
+                            <li>etc....</li>
+                        </ul>
 
-                    <p>&copy;nulldesign.jp All Rights Reserved.</p>
+                        <p>&copy;nulldesign.jp All Rights Reserved.</p>
+                    </div>
                 </div>
             </section>
 

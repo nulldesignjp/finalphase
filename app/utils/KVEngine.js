@@ -162,6 +162,21 @@ export default class KVEngine extends THREE.EventDispatcher {
                 this.lastMouse.set(nx, ny);
             });
 
+            setInterval(() => {
+
+                const _eclientX = Math.floor(Math.random() * window.innerWidth);
+                const _eclientY = Math.floor(Math.random() * window.innerHeight);
+                const nx = _eclientX / window.innerWidth;
+                const ny = 1.0 - _eclientY / window.innerHeight;
+
+                // マウスの移動量（波の発生力）を計算
+                const delta = 0.1;
+
+                this.ripplePass.updateMouse(nx, ny, delta);
+                this.lastMouse.set(nx, ny);
+
+            }, 3000)
+
             _resolve();
         });
 
@@ -332,6 +347,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             }
         }
         this.postProcess.composer.setSize(this.size.width, this.size.height);
+        this.postProcess.composer.setPixelRatio(this.size.pixelRatio);
 
         // カスタムイベントの発火（リサイズ完了通知）
         this.dispatchEvent({ type: 'resize', width: this.size.width, height: this.size.height, pixelRatio: this.size.pixelRatio });

@@ -92,8 +92,6 @@ export default class Scene04 extends AbstructScene {
 
         });
 
-
-
     }
 
     update() {
@@ -103,18 +101,6 @@ export default class Scene04 extends AbstructScene {
             this.scene.rotation.y += 0.002
         }
 
-    }
-
-    updateWaterMaterials(key, value) {
-        if (!this.waterMaterials) return;
-        this.waterMaterials.forEach(mat => {
-            if (key === 'color' || key === 'emissive') {
-                mat[key].set(value);
-            } else {
-                mat[key] = value;
-            }
-            mat.needsUpdate = true;
-        });
     }
 
     dispose() {
