@@ -31,14 +31,6 @@ export default function KVisual() {
         {
             "class": "entry",
             "scene": Scene03
-        },
-        {
-            "class": "entry",
-            "scene": Scene04
-        },
-        {
-            "class": "entry",
-            "scene": Scene05
         }
     ];
 
