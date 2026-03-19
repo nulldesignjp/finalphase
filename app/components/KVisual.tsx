@@ -22,10 +22,6 @@ export default function KVisual() {
         },
         {
             "class": "entry",
-            "scene": Scene04
-        },
-        {
-            "class": "entry",
             "scene": Scene01
         },
         {
@@ -35,10 +31,6 @@ export default function KVisual() {
         {
             "class": "entry",
             "scene": Scene03
-        },
-        {
-            "class": "entry",
-            "scene": Scene05
         }
     ];
 
@@ -273,20 +265,17 @@ export default function KVisual() {
 
     return (
         <div id={styles.kv}>
-
-            {/*
-                        <section className={`${styles.section} ${styles.header}`}>
+            <section className={`${styles.section} ${styles.header} ${styles.first}`}>
                 <div className={styles.inner}>
                     <div className={styles.info}>
-                        <h2>static key visiula</h2>
-                        <p>tired web</p>
+                        <h2>nulldesign.archives</h2>
+                        <p>passing the time until the death.</p>
                     </div>
                 </div>
             </section>
-             */}
 
             {scenes.map((scene, index) => (
-                <section key={index} className={`${styles.section} ${styles.entry} ${index === 0 ? styles.first : ''}`}>
+                <section key={index} className={`${styles.section} ${styles.entry}`}>
                     <div className={styles.inner}>
                         <div className={styles.info}>
                             <h2>{scene.scene.meta.title}</h2>
