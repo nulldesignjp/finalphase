@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Pane } from 'tweakpane';
 
-export default class Scene00 extends AbstructScene {
+export default class Scene05 extends AbstructScene {
 
     static meta = {
         title: 'nulldesign.archives',

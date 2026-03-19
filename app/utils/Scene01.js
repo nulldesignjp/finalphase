@@ -30,6 +30,8 @@ export default class Scene01 extends AbstructScene {
 
             this.mesh = _gltf.scene
 
+            console.log(this.mesh.children)
+
             let _hemi = new THREE.HemisphereLight(0xFFFFFF, 0xCCCCCC, 1.0);
             this.hemiLight = _hemi;
             this.scene.add(_hemi)

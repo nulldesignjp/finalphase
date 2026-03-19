@@ -65,7 +65,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-            this.renderer.outputEncoding = THREE.sRGBEncoding;
+            // this.renderer.outputEncoding = THREE.sRGBEncoding;
             // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
             // this.renderer.toneMappingExposure = 1;
 
