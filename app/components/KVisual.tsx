@@ -11,11 +11,17 @@ import Scene03 from '../utils/Scene03';
 import Scene04 from '../utils/Scene04';
 import Scene05 from '../utils/Scene05';
 
+import Scene000 from '../utils/Scene000';
+
 import styles from './KVisual.module.scss';
 
 export default function KVisual() {
 
     const scenes = [
+        {
+            "class": "entry",
+            "scene": Scene000
+        },
         {
             "class": "entry",
             "scene": Scene00
@@ -31,6 +37,14 @@ export default function KVisual() {
         {
             "class": "entry",
             "scene": Scene03
+        },
+        {
+            "class": "entry",
+            "scene": Scene04
+        },
+        {
+            "class": "entry",
+            "scene": Scene05
         }
     ];
 
