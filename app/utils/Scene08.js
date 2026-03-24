@@ -87,7 +87,16 @@ export default class Scene08 extends AbstructScene {
 
 
 
+        this.pl = new THREE.PointLight( 0xFFFFFF, 1, 300, 0.1 );
+        this.pl.castShadow = true;
+        this.pl.shadow.radius = 4; 
 
+        this.pl.position.set( 0, 100, 0 );
+
+        this.scene.add( this.pl )
+
+        this.plh = new THREE.PointLightHelper( this.pl, 10 )
+        this.scene.add( this.plh )
 
 
 
@@ -129,6 +138,12 @@ export default class Scene08 extends AbstructScene {
             this.light.position.x = Math.cos( _time ) * _radius;
             this.light.position.y = Math.sin( _time ) * _radius;
             this.helper.update()
+
+
+            this.pl.position.x = Math.cos( _time * 0.34 ) * _radius * 0.25
+            this.pl.position.z = Math.sin( _time * 0.34 ) * _radius * 0.25
+            this.plh.update()
+            
 
         }
 
