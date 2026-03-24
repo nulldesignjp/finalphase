@@ -3,11 +3,11 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Pane } from 'tweakpane';
 
-export default class Scene000 extends AbstructScene {
+export default class Scene06 extends AbstructScene {
 
     static meta = {
-        title: 'blank scene',
-        description: 'scene000.js',
+        title: 'orbe object',
+        description: 'scene06.js',
         image: "",
         url: 'https://nulldeisn.jp',
         tags: ['template-A', 'template-B', 'template-C'],

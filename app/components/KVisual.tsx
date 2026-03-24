@@ -10,18 +10,19 @@ import Scene02 from '../utils/Scene02';
 import Scene03 from '../utils/Scene03';
 import Scene04 from '../utils/Scene04';
 import Scene05 from '../utils/Scene05';
-
-import Scene000 from '../utils/Scene000';
+import Scene06 from '../utils/Scene06';
+import Scene07 from '../utils/Scene07';
+import Scene08 from '../utils/Scene08';
 
 import styles from './KVisual.module.scss';
 
 export default function KVisual() {
 
     const scenes = [
-        {
-            "class": "entry",
-            "scene": Scene000
-        },
+        // {
+        //     "class": "entry",
+        //     "scene": Scene000
+        // },
         {
             "class": "entry",
             "scene": Scene00
@@ -45,7 +46,23 @@ export default function KVisual() {
         {
             "class": "entry",
             "scene": Scene05
-        }
+        },
+        {
+            "class": "entry",
+            "scene": Scene06
+        },
+        {
+            "class": "entry",
+            "scene": Scene07
+        },
+        {
+            "class": "entry",
+            "scene": Scene08
+        },
+        {
+            "class": "entry",
+            "scene": Scene00
+        },
     ];
 
     let sceneInstances = [];

@@ -35,7 +35,7 @@ export default class KVEngine extends THREE.EventDispatcher {
             this.size = {
                 width: window.innerWidth,
                 height: window.innerHeight,
-                pixelRatio: window.devicePixelRatio
+                pixelRatio: window.devicePixelRatio * 2
             }
 
             this.clock = new THREE.Clock();
@@ -319,7 +319,7 @@ export default class KVEngine extends THREE.EventDispatcher {
         // 参照で受け取っている各Scene側にも最新の値が伝播するようにする
         this.size.width = window.innerWidth;
         this.size.height = window.innerHeight;
-        this.size.pixelRatio = window.devicePixelRatio;
+        this.size.pixelRatio = window.devicePixelRatio * 2;
 
         if (this.camera.aspect) {
             this.camera.aspect = this.size.width / this.size.height;
